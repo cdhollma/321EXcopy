@@ -202,9 +202,19 @@ class WebServer {
           query_pairs = splitQuery(request.replace("multiply?", ""));
 
           // extract required fields from parameters
-          Integer num1 = Integer.parseInt(query_pairs.get("num1"));
-          Integer num2 = Integer.parseInt(query_pairs.get("num2"));
-
+          Integer num1 = 10;
+ 	       Integer num2 = 10;
+          
+	       try{
+	  	       num1 = Integer.parseInt(query_pairs.get("num1"));
+             num2 = Integer.parseInt(query_pairs.get("num2"));
+	      }
+	      catch(Exception e){
+	  	      builder.append("HTTP/1.1 406 Not Acceptable\n");
+	 	      builder.append("Content-Type: text/html; charset=utf-8\n");
+		      builder.append("\n");
+		      builder.append("Must supply integer or non-null arguments for multiply");
+	     }
           // do math
           Integer result = num1 * num2;
 

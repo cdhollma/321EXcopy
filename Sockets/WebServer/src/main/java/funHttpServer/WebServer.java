@@ -204,18 +204,22 @@ class WebServer {
           // extract required fields from parameters
           Integer num1 = 10;
  	  Integer num2 = 10;
-          
-	       try{
-	         num1 = Integer.parseInt(query_pairs.get("num1"));
-             	 num2 = Integer.parseInt(query_pairs.get("num2"));
-	      }
-	      catch(Exception e){
-	  	      builder.append("HTTP/1.1 406 Not Acceptable\n");
-	 	      builder.append("Content-Type: text/html; charset=utf-8\n");
-		      builder.append("\n");
-		      builder.append("Must supply integer or non-null arguments for multiply");
-		      break;
-	     }
+          boolean flag = false;
+	  try{
+	  	num1 = Integer.parseInt(query_pairs.get("num1"));
+          	num2 = Integer.parseInt(query_pairs.get("num2"));
+	  }
+	  catch(Exception e){
+	  	flag = true;
+	  }
+	  if(flag == true){
+		builder.append("HTTP/1.1 406 Not Acceptable\n");
+	 	builder.append("Content-Type: text/html; charset=utf-8\n");
+		builder.append("\n");
+		builder.append("Must supply integer or non-null arguments for multiply");
+	  }
+		
+	  else{
           // do math
           Integer result = num1 * num2;
 
@@ -224,6 +228,7 @@ class WebServer {
           builder.append("Content-Type: text/html; charset=utf-8\n");
           builder.append("\n");
           builder.append("Result is: " + result);
+	  }
 
           // TODO: Include error handling here with a correct error code and
           // a response that makes sense

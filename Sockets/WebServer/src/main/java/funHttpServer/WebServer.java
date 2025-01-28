@@ -281,9 +281,9 @@ class WebServer {
 
           String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
           JSONObject pokeJ = new JSONObject(json);
-          String xp = pokeJ.getString("base_experience");
+          int xp = pokeJ.getInt("base_experience");
           String pok = pokeJ.getString("name");
-          if(Integer.parseInt(xp) >= Integer.parseInt(query_pairs.get("xp"))){
+          if(xp >= Integer.parseInt(query_pairs.get("xp"))){
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");

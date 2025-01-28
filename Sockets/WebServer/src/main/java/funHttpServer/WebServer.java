@@ -272,7 +272,38 @@ class WebServer {
             // TODO: Parse the JSON returned by your fetch and create an appropriate
             // response based on what the assignment document asks for
           }
-        } else {
+        }
+        else if(request.contains("pokemon?")){
+          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+
+
+          query_pairs = splitQuery(request.replace("pokemon?", ""));
+
+          String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
+          JSONObject pokeJ = new JSONObject(json);
+          String xp = pokeJ.getString("base_experience");
+          String pok = pokeJ.getString("name");
+          if(Integer.parseInt(xp) >= Integer.parseInt(query_pairs.get("xp"))){
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("You will level up if you defeat " + pok + " in battle! Go get em!");
+          }
+          else{
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("You will not level up if you defeat " + pok + " in battle :(. More grinding for you.");
+          }
+        }
+        else if(request.contains("currency?"))
+        {
+          Map<String, String> query_pairs = new LinkedHashMap<String, String>();
+
+
+          query_pairs = splitQuery(request.replace("currency?", ""));
+        }
+        else {
           // if the request is not recognized at all
 
           builder.append("HTTP/1.1 400 Bad Request\n");

@@ -280,7 +280,7 @@ class WebServer {
           query_pairs = splitQuery(request.replace("pokemon?", ""));
 
           boolean flag = false;
-
+          boolean flag2 = false;
           try{
             String pokeName = query_pairs.get("poke");
             if(pokeName == null){
@@ -292,13 +292,20 @@ class WebServer {
             flag = true;
           }
           String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
-          System.out.println(json);
-          flag = true;
+          if(json.contains("Exception in url request")){
+            flag2 = true;
+          }
           if(flag == true){
             builder.append("HTTP/1.1 406 Not Acceptable\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
             builder.append("Wrong use of the pokemon query! Correct use is given as: /pokemon?poke={pokemon name or id}&xp={amount of xp needed to lvl up}");
+          }
+          else if(flag2 == true){
+            builder.append("HTTP/1.1 406 Not Acceptable\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("Not given a pokemon name or ID that exists! Try Mew or Ditto!");
           }
           else {
             JSONObject pokeJ = new JSONObject(json);

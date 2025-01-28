@@ -279,21 +279,37 @@ class WebServer {
 
           query_pairs = splitQuery(request.replace("pokemon?", ""));
 
-          String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
-          JSONObject pokeJ = new JSONObject(json);
-          int xp = pokeJ.getInt("base_experience");
-          String pok = pokeJ.getString("name");
-          if(xp >= Integer.parseInt(query_pairs.get("xp"))){
-            builder.append("HTTP/1.1 200 OK\n");
-            builder.append("Content-Type: text/html; charset=utf-8\n");
-            builder.append("\n");
-            builder.append("You will level up if you defeat " + pok + " in battle! Go get em!");
+          boolean flag = false;
+
+          try{
+            String pokeName = query_pairs.get("poke");
+            int xpIn = Integer.parseInt(query_pairs.get("xp"));
           }
-          else{
-            builder.append("HTTP/1.1 200 OK\n");
+          catch(Exception e){
+            flag = true;
+          }
+          if(flag == true){
+            builder.append("HTTP/1.1 406 Not Acceptable\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-            builder.append("You will not level up if you defeat " + pok + " in battle :(. More grinding for you.");
+            builder.append("Wrong use of the pokemon query! Correct use is given as: /pokemon?poke={pokemon name or id}&xp={amount of xp needed to lvl up}");
+          }
+          else {
+            String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
+            JSONObject pokeJ = new JSONObject(json);
+            int xp = pokeJ.getInt("base_experience");
+            String pok = pokeJ.getString("name");
+            if (xp >= Integer.parseInt(query_pairs.get("xp"))) {
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("You will level up if you defeat " + pok + " in battle! Go get em!");
+            } else {
+              builder.append("HTTP/1.1 200 OK\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("You will not level up if you defeat " + pok + " in battle :(. More grinding for you.");
+            }
           }
         }
         else if(request.contains("currency?"))

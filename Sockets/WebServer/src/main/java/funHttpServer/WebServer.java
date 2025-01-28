@@ -246,17 +246,13 @@ class WebServer {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
           query_pairs = splitQuery(request.replace("github?", ""));
           String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
-          //System.out.println(json);
+
+          String query = query_pairs.get("query");
+          if(query.contains("users") && query.contains("repos")){
+            System.out.println("Found");
+          }
 
           JSONArray array = new JSONArray(json);
-//          for(int i = 0; i < array.length(); i++){
-//            JSONObject temp = array.getJSONObject(i);
-//            JSONObject owner = temp.getJSONObject("owner");
-//            String out = "Owner login: " + owner.getString("login") + "\n";
-//            out += "Node ID: " + temp.getString("node_id") + "\n";
-//            out += "Full name: " + temp.getString("full_name") + "\n";
-//            System.out.println(out);
-//          }
 
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");
@@ -269,7 +265,6 @@ class WebServer {
             out += "Full name: " + temp.getString("full_name") + "\n";
             builder.append(out + "\n");
           }
-          //builder.append("Check the todos mentioned in the Java source file");
           // TODO: Parse the JSON returned by your fetch and create an appropriate
           // response based on what the assignment document asks for
 

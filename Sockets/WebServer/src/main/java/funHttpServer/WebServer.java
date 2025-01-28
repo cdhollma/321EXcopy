@@ -324,12 +324,27 @@ class WebServer {
             }
           }
         }
-        else if(request.contains("currency?"))
+        else if(request.contains("count?"))
         {
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
 
 
-          query_pairs = splitQuery(request.replace("currency?", ""));
+          query_pairs = splitQuery(request.replace("count?", ""));
+
+          String input = query_pairs.get("str");
+          char target = query_pairs.get("target").charAt(0);
+
+          int count = 0;
+          for(int i = 0; i < input.length(); i++){
+            if (input.charAt(i) == target){
+              count++;
+            }
+          }
+
+          builder.append("HTTP/1.1 200 OK\n");
+          builder.append("Content-Type: text/html; charset=utf-8\n");
+          builder.append("\n");
+          builder.append("There are " + count + " occurences of " + target + "  in " + input);
         }
         else {
           // if the request is not recognized at all

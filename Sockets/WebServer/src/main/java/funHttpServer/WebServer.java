@@ -249,7 +249,7 @@ class WebServer {
           //System.out.println(json);
 
           JSONArray array = new JSONArray(json);
-          System.out.println("Array=" + array);
+          System.out.println("Obj 1 = " + array.getJSONObject(0));
 
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");

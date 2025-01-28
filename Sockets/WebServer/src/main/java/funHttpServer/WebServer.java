@@ -250,6 +250,7 @@ class WebServer {
 
           JSONArray array = new JSONArray(json);
           System.out.println("Obj 1 = " + array.getJSONObject(0));
+          System.out.println(":Size" + array.length());
 
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");

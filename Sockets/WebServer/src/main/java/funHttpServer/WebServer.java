@@ -332,7 +332,7 @@ class WebServer {
 
           query_pairs = splitQuery(request.replace("count?", ""));
           if(query_pairs.get("str") == null || query_pairs.get("target") == null){
-            flag = true
+            flag = true;
           }
 
           String input = query_pairs.get("str");
@@ -349,7 +349,7 @@ class WebServer {
             builder.append("HTTP/1.1 406 Not Acceptable\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");
-            builder.append("One of the mandatory arguments was not provided! Either str or target.")
+            builder.append("One of the mandatory arguments was not provided! Either str or target.");
           }
           else {
             builder.append("HTTP/1.1 200 OK\n");

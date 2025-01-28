@@ -292,7 +292,7 @@ class WebServer {
             flag = true;
           }
           String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
-          if(json.contains("Exception in url request")){
+          if(!json.contains("{")){
             flag2 = true;
           }
           if(flag == true){

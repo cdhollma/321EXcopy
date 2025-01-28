@@ -3,13 +3,21 @@
 		<link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon">
 	</head>
 	<body>
-		<h3>You can make the following GET requests<h3>
+		<h3>You can make the following GET requests</h3>
 		<ul>
 			<li>/file/sample.html -- returns the content of the file sample.html</li>
-			<li>/json -- returns a json of the /random request</a></li>
-			<li>/random -- returns index.html</a></li>
+			<li>/json -- returns a json of the /random request</li>
+			<li>/random -- returns index.html</li>
+			<li>/pokemon?poke={Pokemon name/id}&xp={amount of xp needed until next level} -- returns if defeating the given Pokemon would give the player a level up based on given xp amount</li>
+			<ul>
+				<li>Example 1: http://35.85.218.115:9000/pokemon?poke=mew&xp=200</li>
+				<li>Example 2: http://35.85.218.115:9000/pokemon?poke=bulbasaur&xp=100</li>
+			</ul>
+			<li>/count?str={input string}&target={target character}</li>
+			<ul>
+				<li>Example: http://35.85.218.115:9000/count?str=Hello World!&target=l</li>
+			</ul>
 		</ul>
 		<h3>File Structure in www (you can use /file/www/FILENAME):</h3>
-		${links}
 	</body>
 </html>

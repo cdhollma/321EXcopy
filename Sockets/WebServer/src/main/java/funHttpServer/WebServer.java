@@ -291,6 +291,9 @@ class WebServer {
           catch(Exception e){
             flag = true;
           }
+          String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
+          System.out.println(json);
+          flag = true;
           if(flag == true){
             builder.append("HTTP/1.1 406 Not Acceptable\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
@@ -298,7 +301,6 @@ class WebServer {
             builder.append("Wrong use of the pokemon query! Correct use is given as: /pokemon?poke={pokemon name or id}&xp={amount of xp needed to lvl up}");
           }
           else {
-            String json = fetchURL("https://pokeapi.co/api/v2/pokemon/" + query_pairs.get("poke"));
             JSONObject pokeJ = new JSONObject(json);
             int xp = pokeJ.getInt("base_experience");
             String pok = pokeJ.getString("name");

@@ -253,7 +253,7 @@ class WebServer {
             JSONObject temp = array.getJSONObject(i);
             JSONObject owner = temp.getJSONObject("owner");
             String out = "Owner login: " + owner.getString("login") + "\n";
-            //out += "ID: " + temp.getString("id") + "\n";
+            out += "Node ID: " + temp.getString("node_id") + "\n";
             out += "Full name: " + temp.getString("full_name") + "\n";
             System.out.println(out);
           }

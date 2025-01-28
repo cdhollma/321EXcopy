@@ -335,15 +335,6 @@ class WebServer {
             flag = true;
           }
 
-          String input = query_pairs.get("str");
-          char target = query_pairs.get("target").charAt(0);
-
-          int count = 0;
-          for(int i = 0; i < input.length(); i++){
-            if (input.charAt(i) == target){
-              count++;
-            }
-          }
 
           if(flag == true){
             builder.append("HTTP/1.1 406 Not Acceptable\n");
@@ -352,6 +343,15 @@ class WebServer {
             builder.append("One of the mandatory arguments was not provided! Either str or target.");
           }
           else {
+            String input = query_pairs.get("str");
+            char target = query_pairs.get("target").charAt(0);
+
+            int count = 0;
+            for(int i = 0; i < input.length(); i++){
+              if (input.charAt(i) == target){
+                count++;
+              }
+            }
             builder.append("HTTP/1.1 200 OK\n");
             builder.append("Content-Type: text/html; charset=utf-8\n");
             builder.append("\n");

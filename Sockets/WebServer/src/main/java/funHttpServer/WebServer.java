@@ -326,10 +326,14 @@ class WebServer {
         }
         else if(request.contains("count?"))
         {
+          boolean flag = false;
           Map<String, String> query_pairs = new LinkedHashMap<String, String>();
 
 
           query_pairs = splitQuery(request.replace("count?", ""));
+          if(query_pairs.get("str") == null || query_pairs.get("target") == null){
+            flag = true
+          }
 
           String input = query_pairs.get("str");
           char target = query_pairs.get("target").charAt(0);
@@ -341,10 +345,18 @@ class WebServer {
             }
           }
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          builder.append("There are " + count + " occurences of " + target + "  in " + input);
+          if(flag == true){
+            builder.append("HTTP/1.1 406 Not Acceptable\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("One of the mandatory arguments was not provided! Either str or target.")
+          }
+          else {
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            builder.append("There are " + count + " occurences of " + target + "  in " + input);
+          }
         }
         else {
           // if the request is not recognized at all

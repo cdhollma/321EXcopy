@@ -8,6 +8,14 @@
 			<li>/file/sample.html -- returns the content of the file sample.html</li>
 			<li>/json -- returns a json of the /random request</li>
 			<li>/random -- returns index.html</li>
+			<li>/multiply?num1={number to multiply}&num2={number to multiply}  -- Returns the product of num1 and num2</li>
+			<ul>
+				<li>Example: http://35.85.218.115:9000/multiply?num1=10&num2=12</li>
+			</ul>
+			<li>/github?query={api call to github api in the form of: users/USERNAME/repos -- Returns information about all repos associated with a given username</li>
+			<ul>
+				<li>Example: http://35.85.218.115:9000/github?query=users/amehlhase316/repos </li>
+			</ul>
 			<li>/pokemon?poke={Pokemon name/id}&xp={amount of xp needed until next level} -- returns if defeating the given Pokemon would give the player a level up based on given xp amount</li>
 			<ul>
 				<li>Example 1: http://35.85.218.115:9000/pokemon?poke=mew&xp=200</li>

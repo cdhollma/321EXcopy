@@ -249,8 +249,14 @@ class WebServer {
           //System.out.println(json);
 
           JSONArray array = new JSONArray(json);
-          System.out.println("Obj 1 = " + array.getJSONObject(0));
-          System.out.println(":Size" + array.length());
+          for(int i = 0; i < array.length(); i++){
+            JSONObject temp = array.getJSONObject(i);
+            JSONObject owner = temp.getJSONObject("owner");
+            String out = "Owner login: " + owner.getString("login") + "\n";
+            out += "ID: " + temp.getString("id") + "\n";
+            out += "Full name: " + temp.getString("full_name") + "\n";
+            System.out.println(out);
+          }
 
           builder.append("HTTP/1.1 200 OK\n");
           builder.append("Content-Type: text/html; charset=utf-8\n");

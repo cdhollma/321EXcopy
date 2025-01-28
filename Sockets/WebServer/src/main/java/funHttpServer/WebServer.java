@@ -267,7 +267,7 @@ class WebServer {
             String out = "Owner login: " + owner.getString("login") + "\n";
             out += "Node ID: " + temp.getString("node_id") + "\n";
             out += "Full name: " + temp.getString("full_name") + "\n";
-            builder.append(out);
+            builder.append(out + "\n");
           }
           //builder.append("Check the todos mentioned in the Java source file");
           // TODO: Parse the JSON returned by your fetch and create an appropriate

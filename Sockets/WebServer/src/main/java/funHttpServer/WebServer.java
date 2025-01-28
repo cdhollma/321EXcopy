@@ -248,26 +248,30 @@ class WebServer {
           String json = fetchURL("https://api.github.com/" + query_pairs.get("query"));
 
           String query = query_pairs.get("query");
-          if(query.contains("users") && query.contains("repos")){
-            System.out.println("Found");
+          if(!(query.contains("users") && query.contains("repos"))){
+              builder.append("HTTP/1.1 406 Not Acceptable\n");
+              builder.append("Content-Type: text/html; charset=utf-8\n");
+              builder.append("\n");
+              builder.append("Query must be given a Github API path to user repos");
           }
+          else {
 
-          JSONArray array = new JSONArray(json);
+            JSONArray array = new JSONArray(json);
 
-          builder.append("HTTP/1.1 200 OK\n");
-          builder.append("Content-Type: text/html; charset=utf-8\n");
-          builder.append("\n");
-          for(int i = 0; i < array.length(); i++){
-            JSONObject temp = array.getJSONObject(i);
-            JSONObject owner = temp.getJSONObject("owner");
-            String out = "Owner login: " + owner.getString("login") + "\n";
-            out += "Node ID: " + temp.getString("node_id") + "\n";
-            out += "Full name: " + temp.getString("full_name") + "\n";
-            builder.append(out + "\n");
+            builder.append("HTTP/1.1 200 OK\n");
+            builder.append("Content-Type: text/html; charset=utf-8\n");
+            builder.append("\n");
+            for (int i = 0; i < array.length(); i++) {
+              JSONObject temp = array.getJSONObject(i);
+              JSONObject owner = temp.getJSONObject("owner");
+              String out = "Owner login: " + owner.getString("login") + "\n";
+              out += "Node ID: " + temp.getString("node_id") + "\n";
+              out += "Full name: " + temp.getString("full_name") + "\n";
+              builder.append(out + "\n");
+            }
+            // TODO: Parse the JSON returned by your fetch and create an appropriate
+            // response based on what the assignment document asks for
           }
-          // TODO: Parse the JSON returned by your fetch and create an appropriate
-          // response based on what the assignment document asks for
-
         } else {
           // if the request is not recognized at all
 

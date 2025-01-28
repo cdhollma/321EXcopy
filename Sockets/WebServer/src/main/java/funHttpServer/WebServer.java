@@ -283,6 +283,9 @@ class WebServer {
 
           try{
             String pokeName = query_pairs.get("poke");
+            if(pokeName == null){
+              flag = true;
+            }
             int xpIn = Integer.parseInt(query_pairs.get("xp"));
           }
           catch(Exception e){
